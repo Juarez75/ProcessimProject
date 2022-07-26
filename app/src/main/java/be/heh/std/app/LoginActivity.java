@@ -1,6 +1,4 @@
-package be.heh.std;
-
-import androidx.appcompat.app.AppCompatActivity;
+package be.heh.std.app;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,7 +6,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 
-public class LoginActivity extends Activity {
+import androidx.appcompat.app.AppCompatActivity;
+
+import be.heh.std.R;
+
+public class LoginActivity extends AppCompatActivity {
 
     EditText et_login_mail;
     EditText et_login_password;
@@ -24,7 +26,7 @@ public class LoginActivity extends Activity {
     public void onLoginClickManager(View v){
         switch(v.getId()){
             case R.id.bt_login_toRegister:
-                Intent intentRegister = new Intent(this,RegisterActivity.class);
+                Intent intentRegister = new Intent(this, RegisterActivity.class);
                 startActivity(intentRegister);
                 break;
         }

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="empty_err">%s is empty !</string>
+    <string name="bad_email_err">%s is not a valid email address !</string>
+    <string name="bad_password_err">%s must contain at least %d character(s), %d digit(s) and %d special char(s).</string>
+    <string name="dont_match_err">%s and %s don\'t match !</string>
+    <string name="taken_email_err">This email address is already taken.</string>
+</resources>
