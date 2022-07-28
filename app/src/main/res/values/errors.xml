@@ -5,4 +5,6 @@
     <string name="bad_password_err">%s must contain at least %d character(s), %d digit(s) and %d special char(s).</string>
     <string name="dont_match_err">%s and %s don\'t match !</string>
     <string name="taken_email_err">This email address is already taken.</string>
+    <string name="wrong_login">Wrong login or wrong password</string>
+    <string name="wrong_pwd">Wrong password</string>
 </resources>

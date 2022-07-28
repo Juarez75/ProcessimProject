@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
+import android.widget.Button;
 import android.widget.EditText;
 import android.view.View;
 import android.widget.TextView;
@@ -33,6 +34,7 @@ public class RegisterActivity extends AppCompatActivity {
     private ArrayList<View> emptyInput;
     private PasswordHash passwordHash;
     private Intent intent;
+    private Button toLogin;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +48,11 @@ public class RegisterActivity extends AppCompatActivity {
         password = (EditText) findViewById(R.id.et_register_password);
         password2 = (EditText) findViewById(R.id.et_register_password2);
         emptyInput.addAll(Arrays.asList(firstname, lastname,mail,password,password2));
+        toLogin = (Button) findViewById(R.id.bt_register_toLogin);
+
+        if(firstTime){
+            toLogin.setVisibility(View.GONE);
+        }
     }
 
     public void onRegisterClickManager(View v){
@@ -54,9 +61,10 @@ public class RegisterActivity extends AppCompatActivity {
                 intent = new Intent(this, LoginActivity.class);
                 startActivity(intent);
                 finish();
-
+                break;
             case R.id.bt_register_register:
                 createUser(v);
+                break;
         }
     }
     private void createUser(View v){
