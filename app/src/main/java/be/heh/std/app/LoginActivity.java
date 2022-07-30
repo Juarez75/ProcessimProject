@@ -1,6 +1,5 @@
 package be.heh.std.app;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,12 +10,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Locale;
 
 import be.heh.std.R;
 import be.heh.std.database.AppDatabase;
 import be.heh.std.database.User;
-import be.heh.std.useful.PasswordHash;
+import be.heh.std.imported.security.PasswordHash;
 
 public class LoginActivity extends AppCompatActivity {
 

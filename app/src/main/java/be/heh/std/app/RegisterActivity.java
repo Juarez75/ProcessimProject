@@ -1,6 +1,5 @@
 package be.heh.std.app;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -13,15 +12,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 import java.util.regex.Pattern;
 
 import be.heh.std.R;
-import be.heh.std.app.LoginActivity;
 import be.heh.std.database.AppDatabase;
 import be.heh.std.database.Role;
 import be.heh.std.database.User;
-import be.heh.std.useful.PasswordHash;
+import be.heh.std.imported.security.PasswordHash;
 
 public class RegisterActivity extends AppCompatActivity {
     private EditText mail;

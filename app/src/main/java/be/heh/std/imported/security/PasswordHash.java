@@ -1,4 +1,4 @@
-package be.heh.std.useful;
+package be.heh.std.imported.security;
 
 import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;

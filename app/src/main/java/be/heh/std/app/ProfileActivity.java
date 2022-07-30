@@ -12,13 +12,12 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Locale;
 import java.util.regex.Pattern;
 
 import be.heh.std.R;
 import be.heh.std.database.AppDatabase;
 import be.heh.std.database.User;
-import be.heh.std.useful.PasswordHash;
+import be.heh.std.imported.security.PasswordHash;
 
 public class ProfileActivity extends AppCompatActivity {
 
