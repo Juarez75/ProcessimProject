@@ -6,9 +6,10 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-@Database(entities = {User.class}, version = 1)
+@Database(entities = {User.class, PlcConf.class}, version = 3)
 public abstract class AppDatabase extends RoomDatabase {
     public abstract UserDao userDao();
+    public abstract PlcConfDao plcConfDao();
     public static AppDatabase instance;
 
     public static synchronized AppDatabase getInstance(Context context) {

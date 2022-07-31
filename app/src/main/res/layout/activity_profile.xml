@@ -7,6 +7,14 @@
     android:layout_gravity="center"
     android:orientation="vertical"
     tools:context=".app.ProfileActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="9.5"
+
+        android:paddingVertical="20dp"
+        android:paddingHorizontal="30dp">
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -96,5 +104,30 @@
         android:text="Inscription"
         android:onClick="onProfileClickManager"
         tools:ignore="onClick"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        >
 
+        <ImageButton
+            android:id="@+id/btn_profile_listPlc"
+            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:onClick="onProfileClickManager"
+            tools:ignore="onClick"
+            android:layout_weight="1"
+            android:src="@drawable/ic_robot"
+            android:background="@color/purple_500"/>
+        <ImageButton
+            android:background="@color/purple_500"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:id="@+id/btn_profile_profile"
+            android:src="@drawable/ic_user"
+            android:onClick="onProfileClickManager"
+            tools:ignore="onClick"
+            />
+    </LinearLayout>
 </LinearLayout>

@@ -66,6 +66,11 @@ public class ProfileActivity extends AppCompatActivity {
             case R.id.bt_profile_updatePwd:
                 updatePwd(v);
                 break;
+            case R.id.btn_profile_listPlc:
+                intent = new Intent(this,ListPlcActivity.class);
+                startActivity(intent);
+                finish();
+                break;
         }
     }
 

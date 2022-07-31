@@ -7,4 +7,5 @@
     <string name="taken_email_err">This email address is already taken.</string>
     <string name="wrong_login">Wrong login or wrong password</string>
     <string name="wrong_pwd">Wrong password</string>
+    <string name="bad_ip_err">%s is not a valid IP address !</string>
 </resources>

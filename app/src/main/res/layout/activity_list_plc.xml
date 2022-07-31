@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".app.ListPlcActivity"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/bt_list_newPlc"
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        android:onClick="onListPlcManager"
+        android:text="Ajouter nouveau plc"
+        tools:ignore="onClick" />
+
+
+
+        <LinearLayout
+            android:id="@+id/lnl_main_message"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="40dp"
+            android:orientation="vertical"
+            android:layout_weight="1">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:text="Aucun automate"
+                android:textSize="25sp" />
+        </LinearLayout>
+
+        <ScrollView
+            android:id="@+id/scv_main"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginVertical="20dp"
+            android:layout_marginHorizontal="30dp"
+            android:layout_marginTop="20dp">
+            <LinearLayout
+                android:id="@+id/lnl_main"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"/>
+        </ScrollView>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        >
+
+        <ImageButton
+            android:id="@+id/btn_listPlc_listPlc"
+            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:onClick="onListPlcManager"
+            tools:ignore="onClick"
+            android:layout_weight="1"
+            android:src="@drawable/ic_robot"
+            android:background="@color/purple_500"/>
+        <ImageButton
+            android:background="@color/purple_500"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:layout_width="48dp"
+            android:id="@+id/btn_listPlc_profile"
+            android:src="@drawable/ic_user"
+            android:onClick="onListPlcManager"
+            tools:ignore="onClick"
+            />
+    </LinearLayout>
+
+</LinearLayout>

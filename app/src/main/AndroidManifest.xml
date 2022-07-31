@@ -3,6 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="be.heh.std">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,6 +16,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ProcessimProject"
         tools:targetApi="31">
+        <activity
+            android:name=".app.NewPlcActivity"
+            android:exported="true" />
+        <activity
+            android:name=".app.ListPlcActivity"
+            android:exported="true" />
         <activity
             android:name=".app.ProfileActivity"
             android:exported="true" />
@@ -27,10 +36,10 @@
         </activity>
         <activity
             android:name=".app.RegisterActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".app.LoginActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
     </application>
 
 </manifest>
