@@ -17,6 +17,7 @@ import be.heh.std.R;
 import be.heh.std.customView.RobotView;
 import be.heh.std.database.AppDatabase;
 import be.heh.std.database.PlcConf;
+import be.heh.std.database.Role;
 
 public class ListPlcActivity extends AppCompatActivity {
 
@@ -25,6 +26,7 @@ public class ListPlcActivity extends AppCompatActivity {
     private LinearLayout lnlMessage;
     private ArrayList<PlcConf> robots;
     private Intent intent;
+    private int id;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,8 @@ public class ListPlcActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_plc);
+        intent = getIntent();
+        id = intent.getIntExtra("id", -1);
         scv = findViewById(R.id.scv_main);
         lnlRobots = findViewById(R.id.lnl_main);
         lnlMessage = findViewById(R.id.lnl_main_message);
@@ -59,7 +63,7 @@ public class ListPlcActivity extends AppCompatActivity {
             case R.id.bt_list_newPlc:
                 intent = new Intent(this, NewPlcActivity.class);
                 startActivity(intent);
-                finish();
+
                 break;
         }
 

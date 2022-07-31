@@ -17,6 +17,9 @@
         android:theme="@style/Theme.ProcessimProject"
         tools:targetApi="31">
         <activity
+            android:name=".app.PillsActivity"
+            android:exported="false" />
+        <activity
             android:name=".app.NewPlcActivity"
             android:exported="true" />
         <activity

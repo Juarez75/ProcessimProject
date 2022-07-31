@@ -68,8 +68,9 @@ public class ProfileActivity extends AppCompatActivity {
                 break;
             case R.id.btn_profile_listPlc:
                 intent = new Intent(this,ListPlcActivity.class);
+                intent.putExtra("id", user.id);
                 startActivity(intent);
-                finish();
+
                 break;
         }
     }

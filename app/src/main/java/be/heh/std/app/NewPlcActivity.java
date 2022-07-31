@@ -78,7 +78,7 @@ public class NewPlcActivity extends AppCompatActivity {
         PlcConf plcConf = new PlcConf();
         plcConf.ip = ip.getText().toString();
         plcConf.rack = rack.getText().toString();
-        plcConf.slot = rack.getText().toString();
+        plcConf.slot = slot.getText().toString();
         plcConf.data_block = datablock.getText().toString();
         plcConf.type = PlcType.valueOf(type.getSelectedItem().toString());
         db.plcConfDao().addConf(plcConf);

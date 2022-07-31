@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import be.heh.std.R;
+import be.heh.std.app.PillsActivity;
 import be.heh.std.app.StartActivity;
 import be.heh.std.database.AppDatabase;
 import be.heh.std.database.PlcConf;
@@ -69,9 +70,9 @@ public class RobotView extends LinearLayout {
                 db.plcConfDao().deleteConfById(robot.id);
                 ((Activity)context).recreate();
             }else{
-                /*Intent i = new Intent(context, StartActivity.class);
-                i.putExtra("ROBOT_ID", robot.getId());
-                context.startActivity(i);*/
+                Intent i = new Intent(context, PillsActivity.class);
+                i.putExtra("id", robot.id);
+                context.startActivity(i);
             }
         }
     };
