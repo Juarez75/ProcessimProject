@@ -1,9 +1,186 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".app.PillsActivity">
+    
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+>
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+<LinearLayout
+    android:id="@+id/info_block_pills"
+    android:layout_width="300dp"
+    android:layout_height="wrap_content"
+android:orientation="vertical"
+    app:layout_constraintBottom_toTopOf="@+id/read_block_pills"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintHorizontal_bias="0.5"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    android:layout_marginTop="20dp">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_pills_ip"
+        android:text="ip"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_pills_rack"
+        android:text="rack"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_pills_slot"
+        android:text="slot"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_pills_datablock"
+        android:text="datablock"/>
+</LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/read_block_pills"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@+id/write_block_pills"
+                android:layout_marginTop="20dp"
+                app:layout_constraintTop_toBottomOf="@id/info_block_pills">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_pills_network"
+                    android:text="Network status :"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_pills_cpu"
+                    android:text="CPU :"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_pills_nmbreBouteille"
+                    android:text="Nmbre de bouteille :"
+
+
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tv_pills_nmbreComprime"
+                    android:text="Nmbre de comprimés :"
+                    />
+            </LinearLayout>
+    <LinearLayout
+        android:id="@+id/write_block_pills"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/read_block_pills">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:id="@+id/linearLayout8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/linearLayout7"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+                <Button
+                    android:id="@+id/bt_pills_5"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:text="5 comprimés"
+                    android:onClick="onPillsClick"
+                    tools:ignore="onClick"/>
+                <Button
+                    android:id="@+id/bt_pills_10"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:text="10 comprimés"
+                    android:onClick="onPillsClick"
+                    tools:ignore="onClick"/>
+                <Button
+                    android:id="@+id/bt_pills_15"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:text="15 comprimés"
+                    android:onClick="onPillsClick"
+                    tools:ignore="onClick"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/linearLayout7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/linearLayout8"
+                android:layout_marginLeft="150dp"
+                >
+
+                <Button
+                    android:id="@+id/bt_pills_local"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:text="Local/Distant"
+                    android:onClick="onPillsClick"
+                    tools:ignore="onClick"/>
+
+                <Button
+                    android:id="@+id/bt_pills_reset"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:text="Reset Nmbre Bottle"
+                    android:onClick="onPillsClick"
+                    tools:ignore="onClick"/>
+                <Switch
+                    android:id="@+id/sw_pills_selec"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:text="Selec on service"
+                    android:onClick="onPillsClick"
+                    tools:ignore="onClick"/>
+                <Switch
+                    android:id="@+id/sw_pills_genBottle"
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:text="Gen Bottle"
+                    android:onClick="onPillsClick"
+                    tools:ignore="onClick"/>
+            </LinearLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+</LinearLayout>

@@ -53,7 +53,7 @@ public class ListPlcActivity extends AppCompatActivity {
 
             for(PlcConf r: robots){
 
-                lnlRobots.addView(new RobotView(this, r));
+                lnlRobots.addView(new RobotView(this, r,id));
             }
         }
     }
@@ -63,7 +63,6 @@ public class ListPlcActivity extends AppCompatActivity {
             case R.id.bt_list_newPlc:
                 intent = new Intent(this, NewPlcActivity.class);
                 startActivity(intent);
-
                 break;
         }
 

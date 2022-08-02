@@ -24,14 +24,16 @@ public class RobotView extends LinearLayout {
     private Context context;
     private ImageButton remove;
     private ImageButton launch;
+    private int id;
 
 
     private LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-    public RobotView(Context context, PlcConf r) {
+    public RobotView(Context context, PlcConf r, int id) {
         super(context);
         this.context = context;
         this.robot = r;
+        this.id = id;
         this.setLayoutParams(layoutParams);
         this.setOrientation(LinearLayout.HORIZONTAL);
 
@@ -72,7 +74,9 @@ public class RobotView extends LinearLayout {
             }else{
                 Intent i = new Intent(context, PillsActivity.class);
                 i.putExtra("id", robot.id);
+                i.putExtra("id_user", id);
                 context.startActivity(i);
+
             }
         }
     };
