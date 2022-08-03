@@ -20,6 +20,8 @@ import org.w3c.dom.Text;
 import be.heh.std.R;
 import be.heh.std.database.AppDatabase;
 import be.heh.std.database.PlcConf;
+import be.heh.std.database.Role;
+import be.heh.std.database.User;
 import be.heh.std.plc.ReadPillsS7;
 import be.heh.std.plc.WritePillsS7;
 
@@ -33,6 +35,7 @@ public class PillsActivity extends AppCompatActivity {
     private WritePillsS7 writeS7;
     private ConnectivityManager connexStatus;
     private Intent intent;
+    private User user;
 
     private TextView ip;
     private TextView rack;
@@ -61,6 +64,7 @@ public class PillsActivity extends AppCompatActivity {
         id = intent.getIntExtra("id_user",-1 );
         AppDatabase db = AppDatabase.getInstance(getApplicationContext());
         plcConf = db.plcConfDao().getConfById(id_plc);
+        user = db.userDao().getUserById(id);
         connexStatus = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
         network = connexStatus.getActiveNetworkInfo();
         nmbreBottle = (TextView) findViewById(R.id.tv_pills_nmbreBouteille);
@@ -162,6 +166,7 @@ public class PillsActivity extends AppCompatActivity {
         cpu = (TextView) findViewById(R.id.tv_pills_cpu);
         networkStatus = (TextView) findViewById(R.id.tv_pills_network);
 
+        if(user.role == Role.BASIC) setBasicUser();
         ip.setText("IP :"+plcConf.ip);
         rack.setText("Rack :"+plcConf.rack);
         slot.setText("Slot :"+plcConf.slot);
@@ -186,6 +191,19 @@ public class PillsActivity extends AppCompatActivity {
                     }
                 }
             }).start();
+    }
+
+    private void setBasicUser(){
+        TextView msg = (TextView) findViewById(R.id.tv_pills_user);
+        msg.setText("Vous n'avez pas les droits pour interargir");
+        genBottle.setClickable(false);
+        onService.setClickable(false);
+        local.setClickable(false);
+        resetBottle.setClickable(false);
+        pills5.setClickable(false);
+        pills10.setClickable(false);
+        pills15.setClickable(false);
+
     }
 
 }

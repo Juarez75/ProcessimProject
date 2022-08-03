@@ -9,6 +9,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -178,5 +179,20 @@ public class LiquidActivity extends AppCompatActivity {
                 }
             }
         }).start();
+    }
+
+    private void setBasicUser(){
+        TextView msg = (TextView) findViewById(R.id.tv_liquid_user);
+        msg.setText("Vous n'avez pas les droits pour interargir");
+        Button bt1 = (Button) findViewById(R.id.bt_liquid_manual);
+        Button bt2 = (Button) findViewById(R.id.bt_liquid_setPoint);
+        vanne1.setClickable(false);
+        vanne2.setClickable(false);
+        vanne3.setClickable(false);
+        vanne4.setClickable(false);
+        manuelAuto.setClickable(false);
+        local.setClickable(false);
+        bt1.setClickable(false);
+        bt2.setClickable(false);
     }
 }

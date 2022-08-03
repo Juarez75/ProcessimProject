@@ -14,19 +14,21 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import be.heh.std.R;
-import be.heh.std.customView.RobotView;
+import be.heh.std.customView.PlcView;
 import be.heh.std.database.AppDatabase;
 import be.heh.std.database.PlcConf;
 import be.heh.std.database.Role;
+import be.heh.std.database.User;
 
 public class ListPlcActivity extends AppCompatActivity {
 
     private ScrollView scv;
-    private LinearLayout lnlRobots;
-    private LinearLayout lnlMessage;
-    private ArrayList<PlcConf> robots;
+    private LinearLayout layoutPlc;
+    private LinearLayout layoutMessage;
+    private ArrayList<PlcConf> plc;
     private Intent intent;
     private int id;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,23 +39,24 @@ public class ListPlcActivity extends AppCompatActivity {
         intent = getIntent();
         id = intent.getIntExtra("id", -1);
         scv = findViewById(R.id.scv_main);
-        lnlRobots = findViewById(R.id.lnl_main);
-        lnlMessage = findViewById(R.id.lnl_main_message);
+        layoutPlc = findViewById(R.id.lnl_main);
+        layoutMessage = findViewById(R.id.lnl_main_message);
         AppDatabase db = AppDatabase.getInstance(getApplicationContext());
-        robots = new ArrayList<PlcConf>(db.plcConfDao().getAllConfs());
+        user = db.userDao().getUserById(id);
+        plc = new ArrayList<PlcConf>(db.plcConfDao().getAllConfs());
 
-        if(robots.isEmpty()){
+        if(plc.isEmpty()){
             scv.setVisibility(View.GONE);
-            lnlMessage.setVisibility(View.VISIBLE);
+            layoutMessage.setVisibility(View.VISIBLE);
         }else{
             scv.setVisibility(View.VISIBLE);
-            lnlRobots.setVisibility(View.VISIBLE);
-            lnlMessage.setVisibility(View.GONE);
+            layoutPlc.setVisibility(View.VISIBLE);
+            layoutMessage.setVisibility(View.GONE);
 
 
-            for(PlcConf r: robots){
+            for(PlcConf r: plc){
 
-                lnlRobots.addView(new RobotView(this, r,id));
+                layoutPlc.addView(new PlcView(this, r,id,user.role));
             }
         }
     }

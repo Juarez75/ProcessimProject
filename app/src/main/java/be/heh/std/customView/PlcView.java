@@ -28,15 +28,17 @@ public class PlcView extends LinearLayout {
     private ImageButton remove;
     private ImageButton play;
     private int id;
+    private Role role;
 
 
     private LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-    public PlcView(Context context, PlcConf r, int id) {
+    public PlcView(Context context, PlcConf r, int id, Role role) {
         super(context);
         this.context = context;
         this.plcConf = r;
         this.id = id;
+        this.role = role;
         this.setLayoutParams(layoutParams);
         this.setOrientation(LinearLayout.HORIZONTAL);
 
@@ -44,9 +46,11 @@ public class PlcView extends LinearLayout {
 
         remove = getButton(R.drawable.ic_delete);
         this.addView(remove);
+        if(role != Role.BASIC){
+            play = getButton(R.drawable.ic_play);
+            this.addView(play);
+        }
 
-        play = getButton(R.drawable.ic_play);
-        this.addView(play);
     }
 
     private ImageButton getButton(int value){

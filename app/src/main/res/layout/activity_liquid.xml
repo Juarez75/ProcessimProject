@@ -106,7 +106,13 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/read_block_pills">
+            app:layout_constraintTop_toBottomOf="@id/read_block_pills"
+            >
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_liquid_user"
+                android:textAlignment="center"/>
             <TextView
                 android:id="@+id/error_msg"
                 android:layout_width="match_parent"
@@ -133,7 +139,8 @@
                         android:layout_height="wrap_content"
                         android:text="Vanne 1"
                         android:onClick="onLiquidClick"
-                        tools:ignore="onClick"/>
+                        tools:ignore="onClick"
+                        />
                     <Switch
                         android:id="@+id/sw_liquid_vanne2"
                         android:layout_width="140dp"
@@ -195,7 +202,8 @@
                         android:text="Set manual"
                         android:onClick="onLiquidClick"
                         tools:ignore="onClick"
-                        android:hint="0-100"/>
+                        android:hint="0-100"
+                        />
 
                     <EditText
                         android:id="@+id/et_liquid_setPoint"
