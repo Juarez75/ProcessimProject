@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".app.LiquidActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        >
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <LinearLayout
+            android:id="@+id/info_block_pills"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="@+id/read_block_pills"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="20dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_liquid_ip"
+                android:text="ip"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_liquid_rack"
+                android:text="rack"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_liquid_slot"
+                android:text="slot"/>
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_liquid_datablock"
+                android:text="datablock"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/read_block_pills"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toTopOf="@+id/write_block_pills"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toBottomOf="@id/info_block_pills">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_liquid_network"
+                android:text="Network status :"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_liquid_cpu"
+                android:text="CPU :"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_liquid_nvLiquide"
+                android:text="Niveau de liquide :"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_liquid_setPoint"
+                android:text="Consigne auto :"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_liquid_consigeMan"
+                android:text="Consigne manuelle :"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/tv_liquid_pilotageVanne"
+                android:text="Mot de pilotage vanne :"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/write_block_pills"
+            android:layout_width="400dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/read_block_pills">
+            <TextView
+                android:id="@+id/error_msg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:textColor="@color/red" />
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/linearLayout8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/linearLayout7"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+                    <Switch
+                        android:id="@+id/sw_liquid_vanne1"
+                        android:layout_width="140dp"
+                        android:layout_height="wrap_content"
+                        android:text="Vanne 1"
+                        android:onClick="onLiquidClick"
+                        tools:ignore="onClick"/>
+                    <Switch
+                        android:id="@+id/sw_liquid_vanne2"
+                        android:layout_width="140dp"
+                        android:layout_height="wrap_content"
+                        android:text="Vanne 2"
+                        android:onClick="onLiquidClick"
+                        tools:ignore="onClick"/>
+                    <Switch
+                        android:id="@+id/sw_liquid_vanne3"
+                        android:layout_width="140dp"
+                        android:layout_height="wrap_content"
+                        android:text="Vanne 3"
+                        android:onClick="onLiquidClick"
+                        tools:ignore="onClick"/>
+                    <Switch
+                        android:id="@+id/sw_liquid_vanne4"
+                        android:layout_width="140dp"
+                        android:layout_height="wrap_content"
+                        android:text="Vanne 4"
+                        android:onClick="onLiquidClick"
+                        tools:ignore="onClick"/>
+                    <Switch
+                        android:id="@+id/sw_liquid_manualAuto"
+                        android:layout_width="140dp"
+                        android:layout_height="wrap_content"
+                        android:text="Gen Bottle"
+                        android:onClick="onLiquidClick"
+                        tools:ignore="onClick"/>
+                    <Switch
+                        android:id="@+id/sw_liquid_local"
+                        android:layout_width="140dp"
+                        android:layout_height="wrap_content"
+                        android:text="Local/Distant"
+                        android:onClick="onLiquidClick"
+                        tools:ignore="onClick"/>
+                </LinearLayout>
+                <LinearLayout
+                    android:id="@+id/linearLayout7"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/linearLayout8"
+                    android:layout_marginLeft="150dp"
+                    >
+                    <EditText
+                        android:id="@+id/et_liquid_manual"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:digits="0123456789"/>
+                    <Button
+                        android:id="@+id/bt_liquid_manual"
+                        android:layout_width="140dp"
+                        android:layout_height="wrap_content"
+                        android:text="Set manual"
+                        android:onClick="onLiquidClick"
+                        tools:ignore="onClick"
+                        android:hint="0-100"/>
+
+                    <EditText
+                        android:id="@+id/et_liquid_setPoint"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:digits="0123456789"/>
+                    <Button
+                        android:id="@+id/bt_liquid_setPoint"
+                        android:layout_width="140dp"
+                        android:layout_height="wrap_content"
+                        android:text="Set point"
+                        android:hint="0-1000"
+                        android:onClick="onLiquidClick"
+                        tools:ignore="onClick"/>
+                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+
+</LinearLayout>

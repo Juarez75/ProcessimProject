@@ -18,9 +18,6 @@ import be.heh.std.imported.simaticS7.S7CpuInfo;
 import be.heh.std.imported.simaticS7.S7OrderCode;
 
 public class ReadPillsS7 {
-    private static final int MESSAGE_PRE_EXECUTE = 1;
-    private static final int MESSAGE_PROGRESS_UPDATE = 2;
-    private static final int MESSAGE_POST_EXECUTE = 3;
 
     private AtomicBoolean isRunning = new AtomicBoolean(false);
 
@@ -35,6 +32,8 @@ public class ReadPillsS7 {
     private int numCPU = 0;
     private Boolean onService = false;
     private Boolean genBottle = false;
+    private Boolean resetBottle = false;
+    private Boolean local = false;
 
     private TextView nmbreBottle;
     private TextView nmbreComprime;
@@ -79,6 +78,8 @@ public class ReadPillsS7 {
     }
     public Boolean getGenBottle(){return genBottle;}
     public Boolean getOnService(){return onService;}
+    public Boolean getLocal(){return local;}
+    public Boolean getResetBottle(){return resetBottle;}
 
     private class AutomateS7 implements Runnable{
         @Override
@@ -91,49 +92,42 @@ public class ReadPillsS7 {
                 Integer res = comS7.ConnectTo(param[0],Integer.valueOf(param[1]),Integer.valueOf(param[2]));
                 S7OrderCode orderCode = new S7OrderCode();
                 Integer result = comS7.GetOrderCode(orderCode);
+                int data;
+                int retInfo;
                 if(res.equals(0) && result.equals(0)){
                     networkStatus = true;
                     numCPU = Integer.valueOf(orderCode.Code().toString().substring(5,8));
+                    // Byte 0
+                    retInfo = comS7.ReadArea(S7.S7AreaDB,databloc,0,8,datasPLC);
+                    //En service
+                    onService = S7.GetBitAt(datasPLC,0,0);
+                    // Byte 1
+                    retInfo = comS7.ReadArea(S7.S7AreaDB,databloc,1,8,datasPLC);
+                    //gen objet
+                    genBottle = S7.GetBitAt(datasPLC,0,3);
+                    //reset
+                    resetBottle = S7.GetBitAt(datasPLC,0,2);
+                    //local
+                    local = S7.GetBitAt(datasPLC,0,6);
                 }
 
                 while(isRunning.get() && res.equals(0)){
-                        // 1 Sélecteur
-                        int retInfo = comS7.ReadArea(S7.S7AreaDB,databloc,0,8,datasPLC);
-                        int data = 0;
-                        if(retInfo == 0){
-                            data = S7.GetBitAt(datasPLC,0,0)?0 : 1;
-
-                        }
-
-                        // 2 Led 5 comprimés
+                        // Byte 4
                         retInfo = comS7.ReadArea(S7.S7AreaDB,databloc,4,8,datasPLC);
                         data = 0;
                         if(retInfo == 0){
+                            //Led 5 comprimés
                             if(S7.GetBitAt(datasPLC,0,3))pills5.setBackgroundColor(0xFF537A38);
                             else pills5.setBackgroundColor(0xFF6200EE);
+                            //Led 10 comprimés
+                            if(S7.GetBitAt(datasPLC,0,4))pills10.setBackgroundColor(0xFF537A38);
+                            else pills10.setBackgroundColor(0xFF6200EE);
+                            //Led 15 comprimés
+                            if(S7.GetBitAt(datasPLC,0,5))pills15.setBackgroundColor(0xFF537A38);
+                            else pills15.setBackgroundColor(0xFF6200EE);
                         }
-                        // 3 Led 10 comprimés
-                        retInfo = comS7.ReadArea(S7.S7AreaDB,databloc,4,8,datasPLC);
-                        data = 0;
-                        if(retInfo == 0){
-                            if(S7.GetBitAt(datasPLC,0,4))pills5.setBackgroundColor(0xFF537A38);
-                            else pills5.setBackgroundColor(0xFF6200EE);
-                        }
-                        // 4 LED 15 comprims
-                        retInfo = comS7.ReadArea(S7.S7AreaDB,databloc,4,8,datasPLC);
-                        data = 0;
-                        if(retInfo == 0){
-                            if(S7.GetBitAt(datasPLC,0,5))pills5.setBackgroundColor(0xFF537A38);
-                            else pills5.setBackgroundColor(0xFF6200EE);
-                        }
-                        // 5 Générateur d'objet
-                        retInfo = comS7.ReadArea(S7.S7AreaDB,databloc,1,8,datasPLC);
-                        data = 0;
-                        if(retInfo == 0){
-                            data = S7.GetBitAt(datasPLC,0,3)?0 : 1;
 
-                        }
-                        // 6 Nmbre de comprimé
+                        // Byte 15 Nombre de comprimés
                         retInfo = comS7.ReadArea(S7.S7AreaDB,databloc,15,2,datasPLC);
                         data = 0;
                         if(retInfo == 0){
@@ -141,7 +135,7 @@ public class ReadPillsS7 {
                             nmbreComprime.setText("Nmbre de comprimés :" + data);
 
                         }
-                        // 7 Nmbre de bouteille
+                        // Byte 16 Nmbre de bouteille
                         retInfo = comS7.ReadArea(S7.S7AreaDB,databloc,16,2,datasPLC);
                         data = 0;
                         if(retInfo == 0){
@@ -151,7 +145,7 @@ public class ReadPillsS7 {
                         }
                 }
             }catch (Exception e){
-
+                Log.e("Error",e.getMessage());
             }
         }
     }

@@ -44,6 +44,8 @@ public class PillsActivity extends AppCompatActivity {
     private TextView nmbreComprime;
     private Switch genBottle;
     private Switch onService;
+    private Switch resetBottle;
+    private Switch local;
     private Button pills5;
     private Button pills10;
     private Button pills15;
@@ -138,33 +140,11 @@ public class PillsActivity extends AppCompatActivity {
                     }
                 }).start();
                 break;
-            case R.id.bt_pills_local:
-                writeS7.setWriteBool(7, false,true);
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try{
-                            Thread.sleep(5000);
-                            writeS7.setWriteBool(7,false,false);
-                        }catch(Exception e){
-                            Log.e("Error",e.getMessage());
-                        }
-                    }
-                }).start();
+            case R.id.sw_pills_local:
+                writeS7.setWriteBool(7, false,local.isChecked());
                 break;
-            case R.id.bt_pills_reset:
-                writeS7.setWriteBool(3, false,true);
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try{
-                            Thread.sleep(5000);
-                            writeS7.setWriteBool(3,false,false);
-                        }catch(Exception e){
-                            Log.e("Error",e.getMessage());
-                        }
-                    }
-                }).start();
+            case R.id.sw_pills_reset:
+                writeS7.setWriteBool(3, false,resetBottle.isChecked());
                 break;
             case R.id.sw_pills_genBottle:
                 writeS7.setWriteBool(4, false,genBottle.isChecked());
@@ -187,7 +167,6 @@ public class PillsActivity extends AppCompatActivity {
         slot.setText("Slot :"+plcConf.slot);
         datablock.setText("Datablock :"+plcConf.data_block);
 
-
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -199,6 +178,8 @@ public class PillsActivity extends AppCompatActivity {
                             cpu.setText("CPU :"+ readS7.getnumCPU());
                             genBottle.setChecked(readS7.getGenBottle());
                             onService.setChecked(readS7.getOnService());
+                            local.setChecked(readS7.getLocal());
+                            resetBottle.setChecked(readS7.getResetBottle());
                         }
                     }catch (Exception e) {
                         Log.e("error",e.getMessage());

@@ -44,9 +44,6 @@ public class WritePillsS7 {
         }else{
             S7.SetBitAt(byte6,0,bit,value);
         }
-
-
-
     }
 
 

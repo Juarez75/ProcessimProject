@@ -12,27 +12,30 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import be.heh.std.R;
+import be.heh.std.app.LiquidActivity;
 import be.heh.std.app.PillsActivity;
 import be.heh.std.app.StartActivity;
 import be.heh.std.database.AppDatabase;
 import be.heh.std.database.PlcConf;
+import be.heh.std.database.PlcType;
+import be.heh.std.database.Role;
 
 
-public class RobotView extends LinearLayout {
+public class PlcView extends LinearLayout {
 
-    private PlcConf robot;
+    private PlcConf plcConf;
     private Context context;
     private ImageButton remove;
-    private ImageButton launch;
+    private ImageButton play;
     private int id;
 
 
     private LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-    public RobotView(Context context, PlcConf r, int id) {
+    public PlcView(Context context, PlcConf r, int id) {
         super(context);
         this.context = context;
-        this.robot = r;
+        this.plcConf = r;
         this.id = id;
         this.setLayoutParams(layoutParams);
         this.setOrientation(LinearLayout.HORIZONTAL);
@@ -42,26 +45,26 @@ public class RobotView extends LinearLayout {
         remove = getButton(R.drawable.ic_delete);
         this.addView(remove);
 
-        launch = getButton(R.drawable.ic_play);
-        this.addView(launch);
+        play = getButton(R.drawable.ic_play);
+        this.addView(play);
     }
 
     private ImageButton getButton(int value){
-        ImageButton b = new ImageButton(context);
-        b.setImageResource(value);
-        b.setOnClickListener(clickListener);
-        return b;
+        ImageButton button = new ImageButton(context);
+        button.setImageResource(value);
+        button.setOnClickListener(clickListener);
+        return button;
     }
 
     private TextView description(){
-        TextView tv = new TextView(context);
-        tv.setText(robot.ip+" "+robot.type);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-        lp.gravity = Gravity.CENTER_VERTICAL;
-        lp.weight= 1;
-        tv.setLayoutParams(lp);
-        tv.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
-        return tv;
+        TextView textView = new TextView(context);
+        textView.setText(plcConf.ip+" "+plcConf.type);
+        LinearLayout.LayoutParams layout = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+        layout.gravity = Gravity.CENTER_VERTICAL;
+        layout.weight= 1;
+        textView.setLayoutParams(layout);
+        textView.setTextSize(TypedValue.COMPLEX_UNIT_SP, 20);
+        return textView;
     }
 
     OnClickListener clickListener = new OnClickListener() {
@@ -69,11 +72,17 @@ public class RobotView extends LinearLayout {
         public void onClick(View v) {
             if(v.equals(remove)){
                 AppDatabase db = AppDatabase.getInstance(context);
-                db.plcConfDao().deleteConfById(robot.id);
+                db.plcConfDao().deleteConfById(plcConf.id);
                 ((Activity)context).recreate();
             }else{
-                Intent i = new Intent(context, PillsActivity.class);
-                i.putExtra("id", robot.id);
+                Intent i;
+                if(plcConf.type == PlcType.PILLS)
+                {
+                    i = new Intent(context, PillsActivity.class);
+                }else{
+                    i = new Intent(context, LiquidActivity.class);
+                }
+                i.putExtra("id", plcConf.id);
                 i.putExtra("id_user", id);
                 context.startActivity(i);
 

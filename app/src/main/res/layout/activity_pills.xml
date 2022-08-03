@@ -147,16 +147,15 @@ android:orientation="vertical"
                 android:layout_marginLeft="150dp"
                 >
 
-                <Button
-                    android:id="@+id/bt_pills_local"
+                <Switch
+                    android:id="@+id/sw_pills_local"
                     android:layout_width="140dp"
                     android:layout_height="wrap_content"
                     android:text="Local/Distant"
                     android:onClick="onPillsClick"
                     tools:ignore="onClick"/>
-
-                <Button
-                    android:id="@+id/bt_pills_reset"
+                <Switch
+                    android:id="@+id/sw_pills_reset"
                     android:layout_width="140dp"
                     android:layout_height="wrap_content"
                     android:text="Reset Nmbre Bottle"
