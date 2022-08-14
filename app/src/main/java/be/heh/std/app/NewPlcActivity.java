@@ -83,6 +83,10 @@ public class NewPlcActivity extends AppCompatActivity {
         plcConf.type = PlcType.valueOf(type.getSelectedItem().toString());
         db.plcConfDao().addConf(plcConf);
         Toast.makeText(getApplicationContext(),"Plc ajouté !", Toast.LENGTH_LONG).show();
+        intent = new Intent(this,ListPlcActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
+        finish();
 
     }catch(Exception e){
         error_msg.setText(e.getMessage());

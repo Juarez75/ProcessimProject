@@ -2,6 +2,7 @@ package be.heh.std.customView;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.util.Log;
 import android.util.TypedValue;
@@ -11,6 +12,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AlertDialog;
 
 import be.heh.std.R;
 import be.heh.std.app.LiquidActivity;
@@ -75,9 +78,25 @@ public class PlcView extends LinearLayout {
         @Override
         public void onClick(View v) {
             if(v.equals(remove)){
-                AppDatabase db = AppDatabase.getInstance(context);
-                db.plcConfDao().deleteConfById(plcConf.id);
-                ((Activity)context).recreate();
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle("Suppression")
+                        .setMessage("Êtes-vous sur de vouloir supprimer le PLC sélectionné ?")
+                        .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                AppDatabase db = AppDatabase.getInstance(context);
+                                db.plcConfDao().deleteConfById(plcConf.id);
+                                ((Activity)context).recreate();
+                            }
+                        })
+                        .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        })
+                        .create()
+                        .show();
             }else{
                 Intent i;
                 if(plcConf.type == PlcType.PILLS)
