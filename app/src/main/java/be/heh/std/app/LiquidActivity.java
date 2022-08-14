@@ -184,7 +184,7 @@ public class LiquidActivity extends AppCompatActivity {
     }
 
     private void setBasicUser(){
-        msgUser.setText("Vous n'avez pas les droits pour interargir");
+        msgUser.setText("Vous n'avez pas les droits pour interagir");
         Button bt1 = (Button) findViewById(R.id.bt_liquid_manual);
         Button bt2 = (Button) findViewById(R.id.bt_liquid_setPoint);
         vanne1.setClickable(false);
@@ -195,5 +195,7 @@ public class LiquidActivity extends AppCompatActivity {
         local.setClickable(false);
         bt1.setClickable(false);
         bt2.setClickable(false);
+        setManual.setEnabled(false);
+        consigneAuto.setEnabled(false);
     }
 }

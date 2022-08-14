@@ -203,7 +203,7 @@ public class PillsActivity extends AppCompatActivity {
     }
 
     private void setBasicUser(){
-        msgUser.setText("Vous n'avez pas les droits pour interargir");
+        msgUser.setText("Vous n'avez pas les droits pour interagir");
         genBottle.setClickable(false);
         onService.setClickable(false);
         local.setClickable(false);
