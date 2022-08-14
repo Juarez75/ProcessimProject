@@ -71,13 +71,13 @@ android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/tv_pills_cpu"
-                    android:text="CPU :"
+                    android:text="En attente"
                     />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/tv_pills_nmbreBouteille"
-                    android:text="Nmbre de bouteille :"
+                    android:text="En attente"
 
 
                     />
@@ -85,7 +85,7 @@ android:orientation="vertical"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/tv_pills_nmbreComprime"
-                    android:text="Nmbre de comprimés :"
+                    android:text="En attente"
                     />
             </LinearLayout>
     <LinearLayout

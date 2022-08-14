@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".app.ListPlcActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:id="@+id/ll_listPlc_parent">
 
     <Button
         android:id="@+id/bt_list_newPlc"
@@ -52,28 +53,30 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        >
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom">
 
         <ImageButton
             android:id="@+id/btn_listPlc_listPlc"
-            android:layout_height="wrap_content"
             android:layout_width="48dp"
-            android:onClick="onListPlcManager"
-            tools:ignore="onClick"
+            android:layout_gravity="bottom"
+            android:layout_height="40dp"
             android:layout_weight="1"
+            android:background="@color/purple_550"
+            android:onClick="onListPlcManager"
             android:src="@drawable/ic_robot"
-            android:background="@color/purple_500"/>
-        <ImageButton
-            android:background="@color/purple_500"
-            android:layout_weight="1"
-            android:layout_height="wrap_content"
-            android:layout_width="48dp"
-            android:id="@+id/btn_listPlc_profile"
-            android:src="@drawable/ic_user"
-            android:onClick="onListPlcManager"
             tools:ignore="onClick"
             />
+
+        <ImageButton
+            android:id="@+id/btn_listPlc_profile"
+            android:layout_width="48dp"
+            android:layout_height="45dp"
+            android:layout_weight="1"
+            android:background="@color/purple_500"
+            android:onClick="onListPlcManager"
+            android:src="@drawable/ic_user"
+            tools:ignore="onClick" />
     </LinearLayout>
 
 </LinearLayout>

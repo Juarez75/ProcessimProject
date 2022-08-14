@@ -3,6 +3,7 @@ package be.heh.std.customView;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -27,30 +28,29 @@ public class PlcView extends LinearLayout {
     private Context context;
     private ImageButton remove;
     private ImageButton play;
-    private int id;
     private Role role;
 
 
     private LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 
-    public PlcView(Context context, PlcConf r, int id, Role role) {
+    public PlcView(Context context, PlcConf r, Role role) {
         super(context);
         this.context = context;
         this.plcConf = r;
-        this.id = id;
         this.role = role;
         this.setLayoutParams(layoutParams);
         this.setOrientation(LinearLayout.HORIZONTAL);
 
         this.addView(description());
 
-        remove = getButton(R.drawable.ic_delete);
-        this.addView(remove);
-        if(role != Role.BASIC){
-            play = getButton(R.drawable.ic_play);
-            this.addView(play);
-        }
+        play = getButton(R.drawable.ic_play);
+        this.addView(play);
 
+        if(role != Role.BASIC){
+            Log.i("PlcView",role+"");
+            remove = getButton(R.drawable.ic_delete);
+            this.addView(remove);
+        }
     }
 
     private ImageButton getButton(int value){
@@ -87,7 +87,6 @@ public class PlcView extends LinearLayout {
                     i = new Intent(context, LiquidActivity.class);
                 }
                 i.putExtra("id", plcConf.id);
-                i.putExtra("id_user", id);
                 context.startActivity(i);
 
             }

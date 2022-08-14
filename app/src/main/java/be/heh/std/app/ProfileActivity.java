@@ -1,7 +1,9 @@
 package be.heh.std.app;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -14,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.regex.Pattern;
 
+import be.heh.std.GlobaleVariable;
 import be.heh.std.R;
 import be.heh.std.database.AppDatabase;
 import be.heh.std.database.User;
@@ -48,7 +51,7 @@ public class ProfileActivity extends AppCompatActivity {
         lastname = (EditText) findViewById(R.id.et_profile_lastname);
         oldPassword =(EditText) findViewById(R.id.et_profile_password);
         newPassword =(EditText) findViewById(R.id.et_profile_password2);
-        id = intent.getIntExtra("id", -1);
+        id = ((GlobaleVariable) this.getApplication()).getId_user();
 
         db = AppDatabase.getInstance(getApplicationContext());
         user = db.userDao().getUserById(id);
@@ -56,6 +59,26 @@ public class ProfileActivity extends AppCompatActivity {
         emptyInput.addAll(Arrays.asList(mail,firstname,lastname));
         emptyInputPwd.addAll(Arrays.asList(oldPassword,newPassword));
         updateView();
+    }
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Quitter l'application")
+                .setMessage("Êtes-vous sur de vouloir quitter l'application ?")
+                .setPositiveButton("Oui", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        finish();
+                    }
+                })
+                .setNegativeButton("Annuler", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.cancel();
+                    }
+                })
+                .create()
+                .show();
     }
 
     public void onProfileClickManager(View v){
@@ -66,14 +89,25 @@ public class ProfileActivity extends AppCompatActivity {
             case R.id.bt_profile_updatePwd:
                 updatePwd(v);
                 break;
-            case R.id.btn_profile_listPlc:
-                intent = new Intent(this,ListPlcActivity.class);
-                intent.putExtra("id", user.id);
+            case R.id.bt_profile_disconnect:
+                intent = new Intent(this,LoginActivity.class);
                 startActivity(intent);
-
+                finish();
+                break;
+            case R.id.btn_profile_listPlc:
+                boolean firsttime= true;
+                if(firsttime){
+                    intent = new Intent(this,ListPlcActivity.class);
+                    startActivity(intent);
+                }else{
+                    intent = new Intent(this,ListPlcActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
                 break;
         }
     }
+
 
     private void update(View v){
         try{

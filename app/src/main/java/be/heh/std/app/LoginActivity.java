@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import be.heh.std.GlobaleVariable;
 import be.heh.std.R;
 import be.heh.std.database.AppDatabase;
 import be.heh.std.database.User;
@@ -64,8 +65,9 @@ public class LoginActivity extends AppCompatActivity {
             if( user == null)
                 throw new Exception(getString(R.string.wrong_login));
             if(passwordHash.validatePassword(password.getText().toString(),user.password)){
+                ((GlobaleVariable) this.getApplication()).setId_user(user.id);
+                ((GlobaleVariable) this.getApplication()).setRole_user(user.role);
                 intent = new Intent(this, ProfileActivity.class);
-                intent.putExtra("id", user.id);
                 startActivity(intent);
                 finish();
             }

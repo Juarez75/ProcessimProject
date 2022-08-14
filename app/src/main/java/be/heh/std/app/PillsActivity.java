@@ -17,17 +17,18 @@ import android.widget.Toast;
 
 import org.w3c.dom.Text;
 
+import be.heh.std.GlobaleVariable;
 import be.heh.std.R;
 import be.heh.std.database.AppDatabase;
 import be.heh.std.database.PlcConf;
 import be.heh.std.database.Role;
 import be.heh.std.database.User;
+import be.heh.std.imported.simaticS7.S7Client;
 import be.heh.std.plc.ReadPillsS7;
 import be.heh.std.plc.WritePillsS7;
 
 public class PillsActivity extends AppCompatActivity {
 
-    private int id;
     private int id_plc;
     private PlcConf plcConf;
     private NetworkInfo network;
@@ -35,7 +36,7 @@ public class PillsActivity extends AppCompatActivity {
     private WritePillsS7 writeS7;
     private ConnectivityManager connexStatus;
     private Intent intent;
-    private User user;
+    private Role role;
 
     private TextView ip;
     private TextView rack;
@@ -45,6 +46,7 @@ public class PillsActivity extends AppCompatActivity {
     private TextView networkStatus;
     private TextView nmbreBottle;
     private TextView nmbreComprime;
+    private TextView msgUser;
     private Switch genBottle;
     private Switch onService;
     private Switch resetBottle;
@@ -54,6 +56,7 @@ public class PillsActivity extends AppCompatActivity {
     private Button pills15;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,43 +64,35 @@ public class PillsActivity extends AppCompatActivity {
 
         intent = getIntent();
         id_plc = intent.getIntExtra("id",-1);
-        id = intent.getIntExtra("id_user",-1 );
+        role = ((GlobaleVariable) this.getApplication()).getRole_user();
         AppDatabase db = AppDatabase.getInstance(getApplicationContext());
         plcConf = db.plcConfDao().getConfById(id_plc);
-        user = db.userDao().getUserById(id);
         connexStatus = (ConnectivityManager) this.getSystemService(Context.CONNECTIVITY_SERVICE);
         network = connexStatus.getActiveNetworkInfo();
-        nmbreBottle = (TextView) findViewById(R.id.tv_pills_nmbreBouteille);
-        nmbreComprime=(TextView) findViewById(R.id.tv_pills_nmbreComprime);
-        genBottle =(Switch) findViewById(R.id.sw_pills_genBottle);
-        onService=(Switch) findViewById(R.id.sw_pills_selec);
-        pills5=(Button) findViewById(R.id.bt_pills_5);
-        pills10=(Button) findViewById(R.id.bt_pills_10);
-        pills15=(Button) findViewById(R.id.bt_pills_15);
 
-        if(network != null && network.isConnectedOrConnecting())
-        {
+
+        setInfo();
+        if(network == null ){
+            Toast.makeText(getApplicationContext(),"Pas de connexion Internet",Toast.LENGTH_LONG).show();
+            this.onBackPressed();
+        }
             try{
 
             Toast.makeText(this,network.getTypeName(),Toast.LENGTH_LONG).show();
-            readS7 = new ReadPillsS7(Integer.valueOf(plcConf.data_block),nmbreBottle,nmbreComprime,pills5,pills10,pills15);
+            readS7 = new ReadPillsS7(Integer.valueOf(plcConf.data_block),nmbreBottle,nmbreComprime,pills5,pills10,pills15,genBottle,onService,resetBottle,local,cpu,networkStatus);
             readS7.Start(plcConf.ip, plcConf.rack, plcConf.slot);
-                Thread.sleep(100);
-                writeS7 = new WritePillsS7(Integer.valueOf(plcConf.data_block));
+            if(role != Role.BASIC){
+                writeS7 = new WritePillsS7(Integer.valueOf(plcConf.data_block), msgUser);
                 writeS7.Start(plcConf.ip,plcConf.rack, plcConf.slot);
-                setInfo();
+            }
             }catch(Exception e){
                 Log.e("Error", e.getMessage());
             }
-        }
     }
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent(this,ListPlcActivity.class);
-        intent.putExtra("id", id);
         readS7.Stop();
-        writeS7.Stop();
-        startActivity(intent);
+        if(role != Role.BASIC) writeS7.Stop();
         finish();
     }
     public void onPillsClick(View v){
@@ -165,37 +160,50 @@ public class PillsActivity extends AppCompatActivity {
         datablock = (TextView) findViewById(R.id.tv_pills_datablock);
         cpu = (TextView) findViewById(R.id.tv_pills_cpu);
         networkStatus = (TextView) findViewById(R.id.tv_pills_network);
+        local = (Switch) findViewById(R.id.sw_pills_local);
+        resetBottle = (Switch) findViewById(R.id.sw_pills_reset);
+        nmbreBottle = (TextView) findViewById(R.id.tv_pills_nmbreBouteille);
+        nmbreComprime=(TextView) findViewById(R.id.tv_pills_nmbreComprime);
+        genBottle =(Switch) findViewById(R.id.sw_pills_genBottle);
+        onService=(Switch) findViewById(R.id.sw_pills_selec);
+        pills5=(Button) findViewById(R.id.bt_pills_5);
+        pills10=(Button) findViewById(R.id.bt_pills_10);
+        pills15=(Button) findViewById(R.id.bt_pills_15);
+        networkStatus = (TextView) findViewById(R.id.tv_pills_network);
+        local = (Switch) findViewById(R.id.sw_pills_local);
+        resetBottle = (Switch) findViewById(R.id.sw_pills_reset);
+        cpu = (TextView) findViewById(R.id.tv_pills_cpu);
+        msgUser = (TextView) findViewById(R.id.tv_pills_user);
 
-        if(user.role == Role.BASIC) setBasicUser();
+        if(role == Role.BASIC) setBasicUser();
         ip.setText("IP :"+plcConf.ip);
         rack.setText("Rack :"+plcConf.rack);
         slot.setText("Slot :"+plcConf.slot);
         datablock.setText("Datablock :"+plcConf.data_block);
+        networkStatus.setText("Network Status : Loading");
 
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        Thread.sleep(1000);
-                        networkStatus.setText("Network Status :"+ (readS7.getNetworkStatus()? "ON":"OFF"));
-                        Log.i("network status", readS7.getNetworkStatus()+"");
-                        if(readS7.getNetworkStatus()){
-                            cpu.setText("CPU :"+ readS7.getnumCPU());
-                            genBottle.setChecked(readS7.getGenBottle());
-                            onService.setChecked(readS7.getOnService());
-                            local.setChecked(readS7.getLocal());
-                            resetBottle.setChecked(readS7.getResetBottle());
-                        }
-                    }catch (Exception e) {
-                        Log.e("error",e.getMessage());
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(300);
+                    while(!readS7.getNetworkStatus()) Thread.sleep(100);
+                    if(readS7.getNetworkStatus()){
+                        genBottle.setChecked(readS7.getGenBottle());
+                        onService.setChecked(readS7.getOnService());
+                        local.setChecked(readS7.getLocal());
+                        resetBottle.setChecked(readS7.getResetBottle());
                     }
+                }catch (Exception e) {
+                    Log.e("error",e.getMessage());
                 }
-            }).start();
+            }
+        }).start();
+
     }
 
     private void setBasicUser(){
-        TextView msg = (TextView) findViewById(R.id.tv_pills_user);
-        msg.setText("Vous n'avez pas les droits pour interargir");
+        msgUser.setText("Vous n'avez pas les droits pour interargir");
         genBottle.setClickable(false);
         onService.setClickable(false);
         local.setClickable(false);
@@ -203,7 +211,6 @@ public class PillsActivity extends AppCompatActivity {
         pills5.setClickable(false);
         pills10.setClickable(false);
         pills15.setClickable(false);
-
     }
 
 }

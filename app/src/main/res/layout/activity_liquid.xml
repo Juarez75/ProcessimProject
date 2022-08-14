@@ -70,31 +70,31 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_liquid_cpu"
-                android:text="CPU :"
+                android:text="En attente"
                 />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_liquid_nvLiquide"
-                android:text="Niveau de liquide :"
+                android:text="En attente"
                 />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_liquid_setPoint"
-                android:text="Consigne auto :"
+                android:text="En attente"
                 />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_liquid_consigeMan"
-                android:text="Consigne manuelle :"
+                android:text="En attente"
                 />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/tv_liquid_pilotageVanne"
-                android:text="Mot de pilotage vanne :"
+                android:text="En attente"
                 />
         </LinearLayout>
         <LinearLayout

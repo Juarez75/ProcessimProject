@@ -1,5 +1,8 @@
 package be.heh.std.plc;
 
+import android.util.Log;
+import android.widget.TextView;
+
 import java.util.concurrent.atomic.AtomicBoolean;
 
 import be.heh.std.imported.simaticS7.S7;
@@ -15,11 +18,15 @@ public class WriteLiquidS7 {
     private byte[] byte2 = new byte[16];
     private byte[] byte26 = new byte[16];
     private byte[] byte28 = new byte[16];
-    public WriteLiquidS7(int databloc){
+
+    private TextView msgUser;
+
+    public WriteLiquidS7(int databloc, TextView msgUser){
         this.databloc = databloc;
         comS7 = new S7Client();
         plcS7 = new AutomateS7();
         writeThread = new Thread(plcS7);
+        this.msgUser = msgUser;
     }
     public void Stop(){
         isRunning.set(false);
@@ -52,18 +59,25 @@ public class WriteLiquidS7 {
         @Override
         public void run() {
             try {
+                msgUser.setText("L'écriture n'est pas encore disponible");
                 comS7.SetConnectionType(S7.S7_BASIC);
-                Integer res = comS7.ConnectTo(parConnexion[0],
-                        Integer.valueOf(parConnexion[1]),Integer.valueOf(parConnexion[2]));
-
+                Integer res = comS7.ConnectTo(parConnexion[0], Integer.valueOf(parConnexion[1]),Integer.valueOf(parConnexion[2]));
+                while(!res.equals(0))
+                {
+                    Thread.sleep(100);
+                    comS7.SetConnectionType(S7.S7_BASIC);
+                    res = comS7.ConnectTo(parConnexion[0], Integer.valueOf(parConnexion[1]),Integer.valueOf(parConnexion[2]));
+                }
+                msgUser.setText("L'écriture est disponible");
                 while(isRunning.get() && (res.equals(0))){
+                    Log.i("WriteLiquid","Running");
                     comS7.WriteArea(S7.S7AreaDB,databloc,2,8,byte2);
                     comS7.WriteArea(S7.S7AreaDB,databloc,26,2,byte26);
                     comS7.WriteArea(S7.S7AreaDB,databloc,28,2,byte28);
                 }
             }
             catch (Exception e){
-                e.printStackTrace();
+                Log.e("WriteLiquid",e.toString());
             }
         }
     }
